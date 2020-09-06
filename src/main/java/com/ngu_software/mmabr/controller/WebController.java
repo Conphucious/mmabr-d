@@ -1,7 +1,9 @@
 package com.ngu_software.mmabr.controller;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@ComponentScan("com.ngu_software.mmabr.service")
 @Controller
-public class TestController {
+public class WebController {
+
+//    @GetMapping("ip")
+//    public void doSomething(HttpServletRequest request) {
+//        String ipAddress = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
+//
+//    }
+
 
     @GetMapping("/")
     public String home() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName + "_" + authentication);
         return "home";
     }
 

@@ -9,17 +9,6 @@
     <title>FourScouts OAuth2 Discord Demo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-
-	<script>
-		var logout = function() {
-			$.post("/logout", function() {
-				$("#user").html('');
-				$(".unauthenticated").show();
-				$(".authenticated").hide();
-			})
-			return true;
-		}
-	</script>
 </head>
 <body>
 <section class="section">
