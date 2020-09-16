@@ -42,13 +42,32 @@ import static com.ngu_software.mmabr.utils.OAuth2UserAgentUtils.withUserAgent;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Oauth Security
         http
                 .oauth2Login()
                 .tokenEndpoint().accessTokenResponseClient(accessTokenResponseClient())
                 .and()
-                .userInfoEndpoint().userService(userService());
+                .userInfoEndpoint().userService(userService()).and().defaultSuccessUrl("/user/handle?login=true", true);
 
+        // Logout
         http.logout().logoutSuccessUrl("/logout");
+
+        // H2
+        http.authorizeRequests()
+                .antMatchers("/", "/ip").permitAll()
+                .antMatchers( "/h2/**").permitAll()
+                .anyRequest().authenticated();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
+
+        http.authorizeRequests().antMatchers("/h2/**").permitAll();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
